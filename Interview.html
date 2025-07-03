@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Oracle Team</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+header, section, footer {
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+header {
+  background-color: #0077ff;
+  color: #fff;
+}
+.discord-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0077ff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.discord-button:hover {
+  background-color: #005ec7;
+}
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+form input, form textarea, form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Interview Member Oracle Team</h1>
+</header>
+<section>
+  <p>Silakan isi form di bawah ini untuk melanjutkan proses interview bergabung ke Oracle Team.</p>
+<form action="#" method="post">
+  <input type="text" name="nama" placeholder="Nama Lengkap" required>
+  <input type="text" name="username" placeholder="Username Minecraft" required>
+
+  <label for="kemampuan">Kemampuan Utama</label>
+  <select id="kemampuan" name="kemampuan" required>
+    <option value="">-- Pilih kemampuan utama kamu --</option>
+    <option value="sf">Slimefun</option>
+    <option value="builder">Builder</option>
+    <option value="redstoner">Redstoner</option>
+    <option value="fighting">Fighting / PvP</option>
+  </select>
+
+  <textarea name="alasan" placeholder="Kenapa ingin bergabung?" required></textarea>
+  <button type="submit">Kirim Data Interview</button>
+</form>
+
+<p>Atau join Discord kami untuk interview langsung:</p>
+<a href="https://discord.gg/Xk7a6hruPB" 
+   target="_blank" 
+   rel="noopener"
+   class="discord-button">
+  Masuk ke Discord Oracle Team
+</a>
+</section>
+<footer>
+  <p>© 2025 Oracle Web. All Rights Reserved</p>
+</footer>
+
+<script>
+  // Animasi muncul saat scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  });
+  document.querySelectorAll("section, header, footer").forEach(element => {
+    observer.observe(element);
+  });
+
+  // ✅ Script untuk kirim data interview ke backend
+  document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const nama = document.querySelector('input[name="nama"]').value;
+    const username = document.querySelector('input[name="username"]').value;
+    const kemampuan = document.querySelector('select[name="kemampuan"]').value;
+    const alasan = document.querySelector('textarea[name="alasan"]').value;
+
+    const data = {
+      secret: "rahasia123",
+      nama,
+      username,
+      kemampuan,
+      alasan,
+    };
+
+    try {
+      const res = await fetch("https://oracle-interview.glitch.me/interview", {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+      body: JSON.stringify(data),
+  });
+
+      const result = await res.json();
+      alert(result.message);
+    } catch (err) {
+      alert("Gagal mengirim data interview!");
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
