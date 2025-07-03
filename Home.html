@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle Web</title>
+<style>
+/* Atur gaya global untuk membuat halaman terlihat rapi dan profesional */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+  margin: 0; padding: 0;
+}
+/* Animasi masuk untuk section dengan efek fade-in dan slide-in, plus efek hover scale */
+header, section, footer {
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease, scale 0.3s ease;
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+section:hover {
+  transform: translateY(0) scale(1.03);
+}
+/* Header dengan warna khas Oracle Web */
+header {
+  background-color: #0077ff;
+  color: #fff;
+}
+h1, h2 {
+  color: #0077ff;
+}
+img.logo {
+  max-width: 150px;
+  border-radius: 8px;
+}
+.upload-form {
+  border: 2px dashed #0077ff;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f1f9ff;
+}
+.upload-form input, .upload-form button, button {
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: none;
+}
+.upload-form button, button {
+  background-color: #0077ff;
+  color: #fff;
+  cursor: pointer;
+}
+.upload-form button:hover, button:hover {
+  background-color: #005ec7;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  padding: 5px 0;
+  transition: background-color 0.3s ease;
+}
+li:hover {
+  background-color: #e3f2fd;
+}
+footer {
+  background-color: #e9ecef;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+footer:hover {
+  background-color: #dce4ec;
+}
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+/* Efek slide-in dari samping untuk area software */
+#software {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+#software.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* Area khusus untuk Upload Info dengan warna berbeda untuk menonjolkan bagi pengunjung */
+#upload-info {
+  background-color: #fffae3;
+  border-radius: 8px;
+  padding: 30px 20px;
+  margin: 20px 0;
+  transition: background-color 0.3s ease;
+}
+#upload-info:hover {
+  background-color: #ffeec4;
+}
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="OracleName.png" alt="Oracle Logo">
+  <h1>Selamat Datang di Oracle Web</h1>
+</header>
+<section id="interview">
+  <h2>Tempat Interview</h2>
+  <p>Klik tombol di bawah untuk masuk ke area Interview khusus!</p>
+  <a href="interview.html"><button>Masuk Interview</button></a>
+</section>
+<section id="upload-info">
+  <h2>Upload Info & Pemberitahuan</h2>
+  <p>Tempat khusus bagi Ketua Tim untuk mengupload info atau pengumuman terkait proyek atau kegiatan tim.</p>
+</section>
+<section id="upload">
+  <h2>Upload Foto & Video</h2>
+  <form class="upload-form" action="https://yourserverurl/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="files[]" accept="image/*,video/*" multiple>
+    <button id="upload-button" type="submit">Upload</button>
+  </form>
+</section>
+<section id="rules">
+  <h2>Rules</h2>
+  <ul>
+    <li>Hormati semua pemain dan staff</li>
+    <li>Tidak diperbolehkan spam atau toxic</li>
+    <li>Ikuti aturan server dengan bijak</li>
+  </ul>
+</section>
+<footer>
+  <img src="OeacleName.png" alt="Oracle Foto" style="max-width:100px">
+  <p>© 2025 Oracle Web. All Rights Reserved</p>
+</footer>
+<script>
+  // Tambah efek scroll dengan Intersection Observer, termasuk efek slide-in dari samping untuk area software
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show"); // Tambah class show untuk efek masuk
+      }
+    });
+  });
+  document.querySelectorAll("section").forEach(section => {
+    observer.observe(section);
+  });
+
+  // Event listener untuk menangani submit dan validasi sebelum upload, memberi feedback kepada pengguna
+  const form = document.querySelector(".upload-form");
+  form.addEventListener("submit", event => {
+    const files = document.querySelector("input[type='file']").files;
+    if (!files.length) {
+      alert("Pilih file sebelum mengupload!");
+      event.preventDefault(); // Cegah pengiriman jika tidak ada file
+    } else {
+      console.log("Mengupload " + files.length + " file..."); // Log jumlah file yang diupload
+      alert("Mengupload " + files.length + " file, mohon tunggu!");
+    }
+  });
+
+  // Tambahan logika untuk halaman pilihan role dapat diletakkan di sini bila diperlukan
+</script>
+</body>
+</html>
